@@ -49,7 +49,7 @@ export default defineConfig({
   plugins: [
     vituum({
       pages: {
-        dir: "./src/pages",
+        dir: "./pages",
       },
       formats: ["json", "eta"],
     }),
