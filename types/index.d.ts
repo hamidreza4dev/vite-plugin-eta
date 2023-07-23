@@ -14,22 +14,9 @@ type BuiltinHelperName =
 
 type CustomHelperName = string;
 
-interface CompileOptions {
-    data?: boolean;
-    compat?: boolean;
-    knownHelpers?: KnownHelpers;
-    knownHelpersOnly?: boolean;
-    noEscape?: boolean;
-    strict?: boolean;
-    assumeObjects?: boolean;
-    preventIndent?: boolean;
-    ignoreStandalone?: boolean;
-    explicitPartialContext?: boolean;
-}
-
-interface HandlebarsOptions {
-    compileOptions?: CompileOptions,
-    runtimeOptions?: import('handlebars').ParseOptions
+interface EtaOptions {
+    compileOptions?: Partial<import('eta/dist/types/config').EtaConfig>,
+    runtimeOptions?: import('eta/dist/types/config').Options
 }
 
 interface PartialsOptions {
@@ -46,7 +33,7 @@ export interface PluginUserConfig {
     globals?: Object
     data?: string | string[]
     formats?: string[]
-    handlebars?: HandlebarsOptions
+    eta?: EtaOptions
     ignoredPaths?: string[]
 }
 

@@ -1,5 +1,5 @@
 {
-  "name": "@vituum/vite-plugin-handlebars",
+  "name": "vite-plugin-eta",
   "version": "1.0.0",
   "type": "module",
   "main": "index.js",
@@ -9,8 +9,7 @@
     "eslint": "eslint '**/*.js' --fix"
   },
   "dependencies": {
-    "fast-glob": "^3.2.12",
-    "handlebars": "^4.7.7",
+    "eta": "^3.0.3",
     "lodash": "^4.17.21",
     "vituum": "^1.0.0"
   },
