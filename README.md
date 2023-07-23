@@ -1,39 +1,81 @@
-<a href="https://npmjs.com/package/@vituum/vite-plugin-handlebars"><img src="https://img.shields.io/npm/v/@vituum/vite-plugin-handlebars.svg" alt="npm package"></a>
-<a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/@vituum/vite-plugin-handlebars.svg" alt="node compatility"></a>
+<a href="https://npmjs.com/package/vite-eta"><img src="https://img.shields.io/npm/v/vite-eta" alt="npm package"></a>
+<a href="https://nodejs.org/en/about/releases/"><img src="https://img.shields.io/node/v/vite-eta" alt="node compatility"></a>
 
-# ⚡️💡 ViteHandlebars
+# ⚡️💡 ViteEta
 
+### IMPORTANT
+This project uses [Vituum](https://vituum.dev), make sure you add it to the list of plugins in the vite config file
+
+#### sample configuration file
 ```js
-import handlebars from '@vituum/vite-plugin-handlebars'
+import { defineConfig } from "vite";
+import vituum from "vituum";
+import viteEta from "vite-eta";
 
-export default {
-    plugins: [
-        handlebars()
-    ],
-    build: {
-        rollupOptions: {
-            input: ['index.hbs.html']
-        }
-    }
-}
+export default defineConfig({
+  plugins: [
+    vituum({
+      pages: {
+        dir: "./src/pages",
+      },
+      formats: ["json", "eta"],
+    }),
+    viteEta()
+  ],
+  build: {
+    emptyOutDir: true,
+    rollupOptions: {
+      // give the file path from root
+      input: [
+        "./src/scripts/**/*.{js,ts}",
+        "./src/pages/**/*.{json,latte,twig,liquid,njk,hbs,pug,eta,html}",
+        "!./src/pages/**/*.{latte,twig,liquid,njk,hbs,pug,eta,html}.json",
+      ],
+    },
+    // If you don't want to do polyfill for module preload
+    modulePreload: false,
+  },
+});
 ```
 
-* Read the [docs](https://vituum.dev/plugins/handlebars.html) to learn more about the plugin options.
-* Use with [Vituum](https://vituum.dev) to get multi-page support.
+#### sample configuration file with specifying root dir
+```js
+import { defineConfig } from "vite";
+import vituum from "vituum";
+import viteEta from "vite-eta";
+
+export default defineConfig({
+  root: "./src",
+  plugins: [
+    vituum({
+      pages: {
+        dir: "./src/pages",
+      },
+      formats: ["json", "eta"],
+    }),
+    viteEta()
+  ],
+  publicDir: "../public",
+  build: {
+    emptyOutDir: true,
+    rollupOptions: {
+      // give the file path from root
+      input: [
+        "./scripts/**/*.{js,ts}",
+        "./pages/**/*.{json,latte,twig,liquid,njk,hbs,pug,eta,html}",
+        "!./pages/**/*.{latte,twig,liquid,njk,hbs,pug,eta,html}.json",
+      ],
+    },
+    // If you don't want to do polyfill for module preload
+    modulePreload: false,
+  },
+});
+```
 
 ## Basic usage
 
 ```html
-<!-- index.hbs -->
-{{> "path/to/template.hbs"}}
-```
-or
-```html
-<!-- index.json  -->
-{
-  "template": "path/to/template.hbs",
-  "title": "Hello world"
-}
+<h1><%= console.log('-------- ETA works with Vite! --------') %></h1>
 ```
 
 ### Requirements
